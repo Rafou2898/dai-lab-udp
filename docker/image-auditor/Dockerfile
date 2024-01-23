@@ -6,5 +6,6 @@ WORKDIR /app
 COPY auditor.jar .
 
 EXPOSE 9904
+EXPOSE 2205
 
-ENTRYPOINT ["java", "-jar", "auditor.jar"]
+CMD ["java", "-jar", "auditor.jar"]

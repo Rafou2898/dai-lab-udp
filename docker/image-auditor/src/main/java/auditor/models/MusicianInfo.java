@@ -1,6 +1,9 @@
-package auditor;
+package auditor.models;
+
+import auditor.models.Instrument;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class MusicianInfo {
 
@@ -28,5 +31,15 @@ public class MusicianInfo {
 
     public void updateLastActivity() {
         this.lastActivity = Instant.now().toEpochMilli();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o.getClass() == getClass() && ((MusicianInfo) o).uuid.equals(uuid) && ((MusicianInfo) o).instrument.equals(instrument);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, instrument);
     }
 }

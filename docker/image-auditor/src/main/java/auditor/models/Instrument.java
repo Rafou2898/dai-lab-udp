@@ -1,4 +1,4 @@
-package auditor;
+package auditor.models;
 
 public enum Instrument {
 

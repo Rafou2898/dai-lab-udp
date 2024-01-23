@@ -1,4 +1,4 @@
-package auditor;
+package auditor.models;
 
 
 public class Musician {
@@ -12,14 +12,12 @@ public class Musician {
         this.sound = sound;
     }
 
-    String getSound() {
+    public String getSound() {
         return sound;
     }
 
-    String getUuid() {
+    public String getUuid() {
         return uuid;
     }
-
-
 
 }

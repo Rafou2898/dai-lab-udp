@@ -11,6 +11,8 @@ import static java.nio.charset.StandardCharsets.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import musician.models.Instrument;
+import musician.models.Musician;
 
 
 public class MusicianMulticastSender {
@@ -30,7 +32,7 @@ public class MusicianMulticastSender {
             @Override
             public void run() {
                 try (DatagramSocket socket = new DatagramSocket()) {
-                    System.out.println(message);
+                    System.out.println("Sending: " + message);
                     byte[] payload = message.getBytes(UTF_8);
                     DatagramPacket packet = new DatagramPacket(payload, payload.length, dest_address);
                     socket.send(packet);

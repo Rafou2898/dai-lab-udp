@@ -1,4 +1,4 @@
-package musician;
+package musician.models;
 
 
 public class Musician {

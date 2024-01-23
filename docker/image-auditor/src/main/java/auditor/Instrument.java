@@ -1,4 +1,4 @@
-package musician;
+package auditor;
 
 public enum Instrument {
 
@@ -16,5 +16,14 @@ public enum Instrument {
 
     public String getSound() {
         return sound;
+    }
+
+    public static Instrument getInstrumentBySound(String sound) {
+        for (Instrument instrument : Instrument.values()) {
+            if (instrument.getSound().equals(sound)) {
+                return instrument;
+            }
+        }
+        return null;
     }
 }

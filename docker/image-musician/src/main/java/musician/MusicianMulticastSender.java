@@ -15,19 +15,23 @@ public class MusicianMulticastSender {
     final static int PORT = 9904;
 
     public static void main(String[] args) {
-        try (DatagramSocket socket = new DatagramSocket()) {
 
-            Musician musician = new Musician(Instrument.piano.getSound());
-            Gson gson = new GsonBuilder().create();
-            String message  = gson.toJson(musician);
-            System.out.println(message);
+        Musician musician = new Musician(Instrument.valueOf(args[0]).getSound());
+        Gson gson = new GsonBuilder().create();
+        String message = gson.toJson(musician);
 
-            byte[] payload = message.getBytes(UTF_8);
-            InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, PORT);
-            DatagramPacket packet = new DatagramPacket(payload, payload.length, dest_address);
-            socket.send(packet);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        while (true) {
+            try (DatagramSocket socket = new DatagramSocket()) {
+
+                System.out.println(message);
+                byte[] payload = message.getBytes(UTF_8);
+                InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, PORT);
+                DatagramPacket packet = new DatagramPacket(payload, payload.length, dest_address);
+                socket.send(packet);
+                Thread.sleep(1000);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 

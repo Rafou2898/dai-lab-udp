@@ -1,5 +1,6 @@
 package musician;
 
+
 public class Musician {
 
     public String uuid;
@@ -9,7 +10,4 @@ public class Musician {
         this.uuid = java.util.UUID.randomUUID().toString();
         this.sound = sound;
     }
-
-
-
 }

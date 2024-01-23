@@ -1,4 +1,10 @@
-FROM ubuntu:latest
-LABEL authors="evara"
+FROM eclipse-temurin:17-jdk-focal
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+# TODO find how to use target directory and if we have to do a README
+COPY musician.jar .
+
+EXPOSE 9904
+
+ENTRYPOINT ["java", "-jar", "musician.jar"]

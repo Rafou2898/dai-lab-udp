@@ -2,13 +2,14 @@ package musician;
 
 public class Musician {
 
-    private String uuid;
-    private Instrument instrument;
-    private long lastActivity;
+    public String uuid;
+    public String sound;
 
-    public Musician(Instrument instrument, long lastActivity) {
+    public Musician(String sound) {
         this.uuid = java.util.UUID.randomUUID().toString();
-        this.instrument = instrument;
-        this.lastActivity = lastActivity;
+        this.sound = sound;
     }
+
+
+
 }

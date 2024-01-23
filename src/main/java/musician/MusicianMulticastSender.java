@@ -5,16 +5,23 @@ import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
 import static java.nio.charset.StandardCharsets.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-public class MusicianBroadcastSender {
 
-    final static String IPADDRESS = "239.1.2.3";
-    final static int PORT = 44444;
+public class MusicianMulticastSender {
+
+    final static String IPADDRESS = "239.255.22.5";
+    final static int PORT = 9904;
 
     public static void main(String[] args) {
         try (DatagramSocket socket = new DatagramSocket()) {
 
-            String message = "Hello group members!";
+            Musician musician = new Musician(Instrument.piano.getSound());
+            Gson gson = new GsonBuilder().create();
+            String message  = gson.toJson(musician);
+            System.out.println(message);
+
             byte[] payload = message.getBytes(UTF_8);
             InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, PORT);
             DatagramPacket packet = new DatagramPacket(payload, payload.length, dest_address);

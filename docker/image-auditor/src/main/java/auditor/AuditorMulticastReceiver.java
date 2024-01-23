@@ -29,10 +29,10 @@ public class  AuditorMulticastReceiver {
                 String message = new String(packet.getData(), 0, packet.getLength(), UTF_8);
                 Gson gson = new GsonBuilder().create();
                 Musician musician = gson.fromJson(message, Musician.class);
-                Orchestra.musicians.add(new MusicianInfo(musician.getUuid(), Instrument.getInstrumentBySound(musician.getSound())));
+                Orchestra.musicians.put(musician.getUuid(), new MusicianInfo(musician.getUuid(), Instrument.getInstrumentBySound(musician.getSound())));
 
                 System.out.println("Received message: " + message + " from " + packet.getAddress() + ", port " + packet.getPort());
-                for (MusicianInfo info : Orchestra.musicians) {
+                for (MusicianInfo info : Orchestra.musicians.values()) {
                     System.out.println(info.getInstrument());
                 }
                 socket.leaveGroup(group_address, netif);

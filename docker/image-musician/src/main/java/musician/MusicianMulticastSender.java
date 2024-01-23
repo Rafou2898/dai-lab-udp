@@ -19,13 +19,13 @@ public class MusicianMulticastSender {
         Musician musician = new Musician(Instrument.valueOf(args[0]).getSound());
         Gson gson = new GsonBuilder().create();
         String message = gson.toJson(musician);
+        InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, PORT);
 
         while (true) {
             try (DatagramSocket socket = new DatagramSocket()) {
 
                 System.out.println(message);
                 byte[] payload = message.getBytes(UTF_8);
-                InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, PORT);
                 DatagramPacket packet = new DatagramPacket(payload, payload.length, dest_address);
                 socket.send(packet);
                 Thread.sleep(1000);

@@ -1,10 +1,11 @@
 package auditor;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Orchestra {
 
-    public static ArrayList<MusicianInfo> musicians = new ArrayList<>();
+    public static HashMap<String, MusicianInfo> musicians = new HashMap<>();
 
 
 }

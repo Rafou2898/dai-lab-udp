@@ -14,7 +14,11 @@ import com.google.gson.GsonBuilder;
 import musician.models.Instrument;
 import musician.models.Musician;
 
-
+/**
+ * Class that sends the information about a sound made by a musician through UDP multicast.
+ * @author : Eva Ray
+ * @author : Rafael Dousse
+ */
 public class MusicianMulticastSender {
 
     final static String IPADDRESS = "239.255.22.5";
@@ -44,23 +48,3 @@ public class MusicianMulticastSender {
     }
 
 }
-
-/* TODO: pourquoi version avc ScheduledExecutorService ne fonctionne pas ?
-
-try (DatagramSocket socket = new DatagramSocket(); ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor()) {
-            System.out.println("Sending message: " + message + " to " + destAddress.getAddress() + ", port " + destAddress.getPort());
-
-            executor.scheduleAtFixedRate(() -> {
-                try {
-                    byte[] payload = message.getBytes(UTF_8);
-                    DatagramPacket packet = new DatagramPacket(payload, payload.length, destAddress);
-                    socket.send(packet);
-                    System.out.println(message);
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }, 0, 1, java.util.concurrent.TimeUnit.SECONDS);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-*/

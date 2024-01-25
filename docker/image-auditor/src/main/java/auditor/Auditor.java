@@ -17,7 +17,12 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.net.*;
 
-
+/**
+ * Class representing the auditor of the orchestra. It receives the information about the musicians through UDP
+ * and sends it through TCP to the clients.
+ * @author : Eva Ray
+ * @author : Rafael Dousse
+ */
 public class Auditor {
     final static String IPADDRESS = "239.255.22.5";
     final static int UDP_PORT = 9904;
@@ -25,6 +30,10 @@ public class Auditor {
     public static HashMap<String, MusicianInfo> orchestra = new HashMap<>();
 
 
+    /**
+     * Main method of the auditor used to start the UDP receiver and the TCP server.
+     * @param args the arguments of the main method
+     */
     public static void main(String[] args) {
 
         Auditor auditor = new Auditor();
@@ -32,6 +41,9 @@ public class Auditor {
         auditor.tcpServer();
     }
 
+    /**
+     * Method used to receive the information about the musicians through UDP.
+     */
     public void udpMulticastReceiver() {
 
         new Thread(() -> {
@@ -57,6 +69,9 @@ public class Auditor {
         }).start();
     }
 
+    /**
+     * Method used to send the musicians present in the orchestra through TCP.
+     */
     private void tcpServer() {
         new Thread(() -> {
             try (ServerSocket serverSocket = new ServerSocket(TCP_PORT)) {
@@ -80,6 +95,10 @@ public class Auditor {
         }).start();
     }
 
+    /**
+     * Method used to remove the inactive musicians from the orchestra. A musician is considered inactive if he has
+     * not sent any message for 5 seconds.
+     */
     public void removeInactiveMusicians() {
         for (MusicianInfo info : orchestra.values()) {
             if (Instant.now().toEpochMilli() - info.getLastActivity() > 5000) {
@@ -88,6 +107,9 @@ public class Auditor {
         }
     }
 
+    /**
+     * Method used to display the instruments played by the musicians present in the orchestra.
+     */
     public static void displayOrchestra() {
         for (MusicianInfo info : orchestra.values()) {
             System.out.println(info.getInstrument());

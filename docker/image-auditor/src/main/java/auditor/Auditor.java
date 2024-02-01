@@ -6,7 +6,6 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.DatagramPacket;
 import java.time.Instant;
-import java.util.HashMap;
 
 import static java.nio.charset.StandardCharsets.*;
 
@@ -16,6 +15,7 @@ import auditor.models.MusicianInfo;
 import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class representing the auditor of the orchestra. It receives the information about the musicians through UDP
@@ -27,7 +27,7 @@ public class Auditor {
     final static String IPADDRESS = "239.255.22.5";
     final static int UDP_PORT = 9904;
     final static int TCP_PORT = 2205;
-    public static HashMap<String, MusicianInfo> orchestra = new HashMap<>();
+    private final ConcurrentHashMap<String, MusicianInfo> orchestra = new ConcurrentHashMap<>();
 
 
     /**

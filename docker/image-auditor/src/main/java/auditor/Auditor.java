@@ -61,7 +61,6 @@ public class Auditor {
                     Musician musician = new GsonBuilder().create().fromJson(message, Musician.class);
                     orchestra.put(musician.getUuid(), new MusicianInfo(musician.getUuid(), Instrument.getInstrumentBySound(musician.getSound())));
                     System.out.println("Received message: " + message + " from " + packet.getAddress() + ", port " + packet.getPort());
-                    displayOrchestra();
                 }
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
@@ -79,12 +78,9 @@ public class Auditor {
                 while (!Thread.interrupted()) {
 
                     try (Socket socket = serverSocket.accept(); var out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), UTF_8))) {
-
                         removeInactiveMusicians();
-                        displayOrchestra();
                         out.write(new GsonBuilder().create().toJson(orchestra.values()));
                         out.flush();
-
                     } catch (IOException e) {
                         System.out.println("Server: socket ex.: " + e);
                     }
@@ -104,15 +100,6 @@ public class Auditor {
             if (Instant.now().toEpochMilli() - info.getLastActivity() > 5000) {
                 orchestra.remove(info.getUuid());
             }
-        }
-    }
-
-    /**
-     * Method used to display the instruments played by the musicians present in the orchestra.
-     */
-    public static void displayOrchestra() {
-        for (MusicianInfo info : orchestra.values()) {
-            System.out.println(info.getInstrument());
         }
     }
 

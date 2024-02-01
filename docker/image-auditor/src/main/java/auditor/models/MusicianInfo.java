@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class MusicianInfo {
 
-    private String uuid;
-    private Instrument instrument;
+    private final String uuid;
+    private final Instrument instrument;
     private long lastActivity; // Using long to store timestamp as milliseconds since epoch
 
     /**
